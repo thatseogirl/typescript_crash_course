@@ -52,3 +52,69 @@ function noReturn (message: string | number): void{
     console.log(message)
 }
 noReturn("you're welcome here ")
+
+//interfaces cannot be used in case or premitives or union  e.g of interface with objects
+
+interface userInterface {
+    readonly id: number, //this is a read only property
+    name: string
+    age? : number //this is an optional property
+}
+
+const user2: userInterface = {
+id: 2,
+name: "sample"
+}
+
+//using interface with functions 
+interface mathsFunc {
+    (x: number, y:number): number 
+}
+
+const subtractNum: mathsFunc = (x: number, y: number): number => x - y
+
+// classes examples
+
+interface personInterface {
+    id: number, 
+    name: string,
+    register(): string
+}
+class Person implements personInterface{
+    id: number
+    name: string
+
+    constructor (id: number, name: string) {
+       this.id=id
+       this.name = name
+    }
+    register() {
+        return `${this.name} is now registered`
+    }
+}
+
+const NewUser = new Person(1, "user001")
+
+//sub classes
+
+class Employee extends Person{
+  position: string
+
+  constructor(id: number, name: string, position: string) {
+    super(id, name)
+    this.position = position
+  }
+}
+const emp = new Employee(2, "testUser", "Engineer")
+
+console.log(NewUser.register(), emp)
+
+//generics array will allow for number or string or any type of array with the types defined
+
+const getItems = <ElementType>(items: ElementType[]) : ElementType[] => { ///ElementType CAN BE ANY NAME like(T), or w or anything 
+return new Array().concat(items)
+}
+
+let newArray = getItems<number>([1,2, 3,4,5,6])
+
+let newArray2 = getItems<string>(["hshsh","dhhdhd", "jdhhdd"])
